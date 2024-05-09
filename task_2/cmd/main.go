@@ -5,7 +5,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/Limesbra/task_2/pkg/square"
+	"task_2/internal/square"
 )
 
 func main() {
