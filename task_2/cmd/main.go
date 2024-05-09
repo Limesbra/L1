@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"sort"
 	"sync"
+
+	"github.com/Limesbra/task_2/pkg/square"
 )
 
 func main() {
@@ -13,10 +15,8 @@ func main() {
 	wg.Add(5)               // 5 потоков
 
 	for _, number := range numbers { // Запуск горутин
-		go func(n int) {
-			ch <- n * n
-			defer wg.Done() // Уменьшение счетчика горутин
-		}(number)
+		go square.Square(number, ch)
+		wg.Done() // Уменьшение счетчика
 	}
 	wg.Wait() // Ожидание завершения работы потоков
 
