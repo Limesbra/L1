@@ -1,13 +1,16 @@
 package quicksort
 
-import (
-	"golang.org/x/exp/constraints"
-)
+// Comparable - интерфейс, представляющий типы, которые могут сравниваться и сортироваться.
+type Comparable interface {
+	int | int8 | int16 | int32 | int64 |
+		uint | uint8 | uint16 | uint32 | uint64 |
+		float32 | float64 | string
+}
 
 // QuickSort - быстрая сортировка
 // Принимает массив и индекс опорного элемента
 // Возвращает отсортированный массив
-func QuickSort[T constraints.Ordered](arr []T, p int) []T {
+func QuickSort[T Comparable](arr []T, p int) []T {
 	// проверяем что индекс опорного элемента не выходит за пределы массива
 	// и что длина массива больше единицы
 	if p < 0 || p >= len(arr) {

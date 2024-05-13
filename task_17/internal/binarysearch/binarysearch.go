@@ -1,11 +1,16 @@
 package binarysearch
 
-import "golang.org/x/exp/constraints"
+// Comparable - интерфейс, представляющий типы, которые могут сравниваться и сортироваться.
+type Comparable interface {
+	int | int8 | int16 | int32 | int64 |
+		uint | uint8 | uint16 | uint32 | uint64 |
+		float32 | float64 | string
+}
 
 // BinarySearch - бинарный поиск
 // Принимает массив и значение для поиска
 // Возвращает индекс(искомого элемента или индекс на котором остановился бинарный поиск) и булевое значение(true - если элемент найден, false - если нет)
-func BinarySearch[T constraints.Ordered](arr []T, target T) (uint, bool) {
+func BinarySearch[T Comparable](arr []T, target T) (uint, bool) {
 	// Левая и правая границы
 	var (
 		left  uint = 0
