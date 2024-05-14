@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/signal"
@@ -34,8 +33,6 @@ func main() {
 	sig := make(chan os.Signal, 1)     // sig - создание канала для сигналов операционной системы
 	signal.Notify(sig, syscall.SIGINT) // signal.Notify - регистрация канала для получения сигнала SIGINT
 
-	ctx, cancel := context.WithCancel(context.Background()) // ctx - создание контекста с возможностью отмены операций
-
 	data := make(chan string)
 
 	// запуск N потоков worker
@@ -47,8 +44,8 @@ func main() {
 	go func() {
 		for {
 			select {
-			// Ожидание сигнала завершения контекста ctx
-			case <-ctx.Done():
+			// Закрываем канал при получении сигнала
+			case <-sig:
 				// Закрытие канала данных и завершение функции
 				close(data)
 				return
@@ -60,6 +57,5 @@ func main() {
 		}
 	}()
 
-	fmt.Println("\nполученный сигнал -", <-sig, "\nПрограмма завершена") // ожидание сигнала
-	cancel()                                                             // отмена операций
+	fmt.Println("\nполученный сигнал -", <-sig, "\nПрограмма завершена") // ожидание сигнала                                                          // отмена операций
 }

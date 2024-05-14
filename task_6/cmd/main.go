@@ -1,7 +1,13 @@
 package main
 
-func main() {
+import (
+	"task_6/internal/method1"
+	"task_6/internal/method2"
+)
 
+func main() {
+	method1.Method1()
+	method2.Method2()
 }
 
 // import ()
